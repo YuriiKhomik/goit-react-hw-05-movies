@@ -1,7 +1,7 @@
 import { Routes, Route } from 'react-router-dom';
 import { Home, Movies } from 'pages';
 import { NavBar } from './NavBar';
-import { getTrendingMovies } from 'services';
+// import { getTrendingMovies } from 'services';
 
 export const App = () => {
   return (
