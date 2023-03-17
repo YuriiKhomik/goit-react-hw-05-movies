@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { useSearchParams, Outlet } from 'react-router-dom';
+import { useSearchParams } from 'react-router-dom';
 import { Box } from 'components/Box/Box';
 import { SearchForm } from 'components/SearchForm';
 import { searchMovies } from 'services';
