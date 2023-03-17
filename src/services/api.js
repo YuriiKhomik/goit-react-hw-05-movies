@@ -6,7 +6,20 @@ const ENDPOINTS = {
   trending: 'https://api.themoviedb.org/3/trending/all/day',
   search: 'https://api.themoviedb.org/3/search/movie',
   details: 'https://api.themoviedb.org/3/movie',
+  configuration: 'https://api.themoviedb.org/3/configuration',
 };
+
+// https://image.tmdb.org/t/p/w500/kqjL17yufvn9OVLyXYpvtyrFfak.jpg
+
+export const getMovieImage = async posterPath => {
+  const { configuration } = ENDPOINTS;
+  axios.defaults.baseURL = `${configuration}?api_key=${API_KEY}`;
+  const response = await axios.get();
+  const { base_url, poster_sizes } = response.data.images;
+  return `${base_url}${poster_sizes[2]}/${posterPath}`;
+};
+
+// getMovieImage().then(console.log);
 
 export const getTrendingMovies = async () => {
   const { trending } = ENDPOINTS;

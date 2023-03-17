@@ -1,29 +1,20 @@
 import React, { useEffect, useState } from 'react';
 import { Link, useParams } from 'react-router-dom';
 import { Box } from 'components/Box/Box';
-import { getMovieDetails } from 'services';
+import { getMovieDetails, getMovieImage } from 'services';
+import { Title, SmallTitle } from './MovieDetails.styled';
 
 export const MovieDetails = () => {
   const [movie, setMovie] = useState([]);
+  const [imageUrl, setImageUrl] = useState('');
   const { id } = useParams();
 
-  const {
-    poster_path,
-    title,
-    name,
-    release_date,
-    vote_average,
-    vote_count,
-    overview,
-    genres,
-  } = movie;
-
-  const genreNames = genres => {};
+  const { title, name, release_date, vote_average, overview, genres } = movie;
 
   useEffect(() => {
-    // if (!id) {
-    //   return;
-    // }
+    if (!id) {
+      return;
+    }
 
     const abortController = new AbortController();
 
@@ -31,6 +22,8 @@ export const MovieDetails = () => {
       try {
         const res = await getMovieDetails(id);
         setMovie(res);
+        const image = await getMovieImage(res.poster_path);
+        setImageUrl(image);
       } catch (error) {
         console.log(error);
       }
@@ -42,35 +35,43 @@ export const MovieDetails = () => {
     };
   }, [id]);
 
-  return (
-    <Box border="1px solid red">
-      <Link to="./">Go back</Link>
-      <div>
-        <img alt="movie title" />
-        <h1>
-          {title || name}, {release_date}
-        </h1>{' '}
-        <p>user score</p> <h2>Overview</h2> <p>{overview}</p>
-        <h3>Genres</h3>
-        {movie.length !== 0 && (
-          <p>
-            {genres.map(genre => {
-              return <span key={genre.name}>{genre.name} </span>;
-            })}
-          </p>
-        )}
-      </div>
-      <Box border="1px solid red">
-        <p>Additional information</p>
-        <ul>
-          <li>
-            <a href="./">Cast</a>
-          </li>
-          <li>
-            <a href="./">Reviews</a>
-          </li>
-        </ul>
+  useEffect(() => {});
+
+  if (movie.length !== 0) {
+    return (
+      <Box pl="40px" pr="40px">
+        <Link to="./">Go back</Link>
+        <Box display="flex">
+          <Box>
+            <img src={imageUrl} alt="movie title" />
+          </Box>
+          <Box pl="20px">
+            <Title>
+              {title || name} ({release_date.slice(0, 4)})
+            </Title>
+            <p>User Score: {`${Math.round(vote_average * 10)}%`}</p>
+            <SmallTitle>Overview</SmallTitle>
+            <p>{overview}</p>
+            <SmallTitle>Genres</SmallTitle>
+            <p>
+              {genres.map(genre => {
+                return <span key={genre.name}>{genre.name} </span>;
+              })}
+            </p>
+          </Box>
+        </Box>
+        <Box border="1px solid red">
+          <p>Additional information</p>
+          <ul>
+            <li>
+              <a href="./">Cast</a>
+            </li>
+            <li>
+              <a href="./">Reviews</a>
+            </li>
+          </ul>
+        </Box>
       </Box>
-    </Box>
-  );
+    );
+  }
 };
