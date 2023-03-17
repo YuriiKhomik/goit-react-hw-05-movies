@@ -1,15 +1,18 @@
 import React, { useState, useEffect } from 'react';
+import { useSearchParams } from 'react-router-dom';
 import { Box } from 'components/Box/Box';
 import { SearchForm } from 'components/SearchForm';
 import { searchMovies } from 'services';
 import { FoundMoviesList } from 'components/FoundMoviesList';
 
 export const Movies = () => {
-  const [searchQuery, setSearchQuery] = useState('');
   const [movies, setItems] = useState([]);
+  const [searchParams, setSearchParams] = useSearchParams();
+
+  const query = searchParams.get('query');
 
   useEffect(() => {
-    if (!searchQuery) {
+    if (!query) {
       return;
     }
 
@@ -17,7 +20,7 @@ export const Movies = () => {
 
     const fetchMovies = async () => {
       try {
-        const movies = await searchMovies(searchQuery);
+        const movies = await searchMovies(query);
         setItems(movies);
       } catch (error) {
         console.log(error);
@@ -29,10 +32,10 @@ export const Movies = () => {
     return () => {
       abortController.abort();
     };
-  }, [searchQuery]);
+  }, [query]);
 
   const handleFormSubmit = searchQuery => {
-    setSearchQuery(searchQuery);
+    setSearchParams({ query: searchQuery });
   };
 
   return (
