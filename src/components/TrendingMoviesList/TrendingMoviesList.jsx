@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Box } from 'components/Box/Box';
 import { getTrendingMovies } from 'services';
 import { MoviesList, Item } from 'components/MoviesList';
+import { Link } from 'react-router-dom';
 
 export const TrendingMoviesList = () => {
   const [movies, setMovies] = useState([]);
@@ -37,7 +38,7 @@ export const TrendingMoviesList = () => {
           const { id, title, name } = movie;
           return (
             <Item key={id}>
-              <a href="./">{title || name}</a>
+              <Link to={`/movies/${id}`}>{title || name}</Link>
             </Item>
           );
         })}

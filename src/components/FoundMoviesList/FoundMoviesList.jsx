@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import { MoviesList, Item } from 'components/MoviesList';
 
 export const FoundMoviesList = ({ movies }) => {
@@ -9,7 +10,7 @@ export const FoundMoviesList = ({ movies }) => {
           const { id, title, name } = movie;
           return (
             <Item key={id}>
-              <a href="./">{title || name}</a>
+              <Link to={`/movies/${id}`}>{title || name}</Link>
             </Item>
           );
         })}
