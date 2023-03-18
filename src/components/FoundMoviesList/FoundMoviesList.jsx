@@ -1,8 +1,9 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import { MoviesList, Item } from 'components/MoviesList';
 
 export const FoundMoviesList = ({ movies }) => {
+  const location = useLocation();
   return (
     <div>
       <MoviesList>
@@ -10,7 +11,9 @@ export const FoundMoviesList = ({ movies }) => {
           const { id, title, name } = movie;
           return (
             <Item key={id}>
-              <Link to={`/movies/${id}`}>{title || name}</Link>
+              <Link to={`/movies/${id}`} state={{ from: location }}>
+                {title || name}
+              </Link>
             </Item>
           );
         })}

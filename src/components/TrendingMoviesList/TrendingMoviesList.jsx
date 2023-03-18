@@ -1,19 +1,14 @@
 import React, { useState, useEffect } from 'react';
+import { Link, useLocation } from 'react-router-dom';
 import { Box } from 'components/Box/Box';
 import { getTrendingMovies } from 'services';
 import { MoviesList, Item } from 'components/MoviesList';
-import { Link } from 'react-router-dom';
 
 export const TrendingMoviesList = () => {
   const [movies, setMovies] = useState([]);
-  //   const shouldFetch = useRef(true);
-
-  //   console.log(shouldFetch);
+  const location = useLocation();
 
   useEffect(() => {
-    // if (!shouldFetch.current) {
-    //   return;
-    // }
     const abortController = new AbortController();
     const fetchTrendingMovies = async () => {
       try {
@@ -38,7 +33,9 @@ export const TrendingMoviesList = () => {
           const { id, title, name } = movie;
           return (
             <Item key={id}>
-              <Link to={`/movies/${id}`}>{title || name}</Link>
+              <Link to={`/movies/${id}`} state={{ from: location }}>
+                {title || name}
+              </Link>
             </Item>
           );
         })}

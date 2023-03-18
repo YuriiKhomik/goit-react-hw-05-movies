@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Link, useParams } from 'react-router-dom';
+import { Link, useParams, useLocation } from 'react-router-dom';
 import { Box } from 'components/Box/Box';
 import { getMovieDetails, getMovieImage } from 'services';
 import { Title, SmallTitle } from './MovieDetails.styled';
@@ -8,6 +8,8 @@ export const MovieDetails = () => {
   const [movie, setMovie] = useState([]);
   const [imageUrl, setImageUrl] = useState('');
   const { id } = useParams();
+
+  const location = useLocation();
 
   const { title, name, release_date, vote_average, overview, genres } = movie;
 
@@ -40,7 +42,7 @@ export const MovieDetails = () => {
   if (movie.length !== 0) {
     return (
       <Box pl="40px" pr="40px">
-        <Link to="./">Go back</Link>
+        <Link to={location.state.from}>Go back</Link>
         <Box display="flex">
           <Box>
             <img src={imageUrl} alt="movie title" />
