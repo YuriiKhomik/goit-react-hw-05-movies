@@ -1,12 +1,46 @@
-import { Box } from 'components/Box/Box';
-import React from 'react';
+import React, { useState, useEffect } from 'react';
+import { useParams } from 'react-router-dom';
+import { getMovieCredits, getActorImage } from 'services';
 
-export const Cast = ({ id }) => {
+// profile_path, name, character
+
+export const Cast = () => {
+  const [cast, setCast] = useState([]);
+
+  const { id } = useParams();
+
+  useEffect(() => {
+    const abortController = new AbortController();
+    const fetchCast = async () => {
+      try {
+        const res = await getMovieCredits(id);
+        setCast(res);
+      } catch (error) {
+        console.log(error);
+      }
+    };
+    fetchCast();
+    return () => {
+      abortController.abort();
+    };
+  }, [id]);
+
   return (
-    <Box as="ul">
-      <li>Actor1</li>
-      <li>Actor2</li>
-      <li>Actor3</li>
-    </Box>
+    <>
+      {cast.length !== 0 && (
+        <ul>
+          {cast.map(item => {
+            const { cast_id, profile_path, name, character } = item;
+            return (
+              <li key={cast_id}>
+                <img src={getActorImage(profile_path)} width="100px" />
+                <p>{name}</p>
+                <p>Character: {character}</p>
+              </li>
+            );
+          })}
+        </ul>
+      )}
+    </>
   );
 };

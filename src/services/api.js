@@ -10,8 +10,6 @@ const ENDPOINTS = {
   configuration: 'https://api.themoviedb.org/3/configuration',
 };
 
-// https://image.tmdb.org/t/p/w500/kqjL17yufvn9OVLyXYpvtyrFfak.jpg
-
 export const getMovieImage = async posterPath => {
   const { configuration } = ENDPOINTS;
   axios.defaults.baseURL = `${configuration}?api_key=${API_KEY}`;
@@ -24,6 +22,19 @@ export const getMovieImage = async posterPath => {
 };
 
 // getMovieImage().then(console.log);
+
+export const getActorImage = posterPath => {
+  // const { configuration } = ENDPOINTS;
+  // axios.defaults.baseURL = `${configuration}?api_key=${API_KEY}`;
+  // const response = await axios.get();
+  // const { base_url, profile_sizes } = response.data.images;
+  if (!posterPath) {
+    return notFoundImage;
+  }
+  return `http://image.tmdb.org/t/p/w185/${posterPath}`;
+};
+
+// getActorImage('/bXe9Z7QHCx7wksNX9Qg9bm4kDAr.jpg').then(console.log);
 
 export const getTrendingMovies = async () => {
   const { trending } = ENDPOINTS;

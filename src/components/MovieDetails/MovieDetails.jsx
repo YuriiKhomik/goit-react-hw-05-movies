@@ -41,10 +41,6 @@ export const MovieDetails = () => {
     };
   }, [id]);
 
-  useEffect(() => {
-    console.log('location: ', location);
-  }, [location]);
-
   const makeGenres = array => {
     return array.map(item => {
       return <span key={item.name}>{item.name} </span>;
@@ -102,6 +98,9 @@ export const MovieDetails = () => {
         </>
       )}
 
+      {/* <Outlet>
+        <Cast id={id} />
+      </Outlet> */}
       <Outlet />
     </Box>
   );
