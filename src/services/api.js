@@ -1,4 +1,5 @@
 import axios from 'axios';
+import notFoundImage from '../images/notFoundImage.jpg';
 
 const API_KEY = '4a77cd59efaf1d55812c775cbc766c97';
 
@@ -16,6 +17,9 @@ export const getMovieImage = async posterPath => {
   axios.defaults.baseURL = `${configuration}?api_key=${API_KEY}`;
   const response = await axios.get();
   const { base_url, poster_sizes } = response.data.images;
+  if (!posterPath) {
+    return notFoundImage;
+  }
   return `${base_url}${poster_sizes[2]}/${posterPath}`;
 };
 
