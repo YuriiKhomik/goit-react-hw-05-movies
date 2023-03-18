@@ -37,15 +37,14 @@ export const Movies = () => {
   const handleFormSubmit = searchQuery => {
     setSearchParams({ query: searchQuery });
   };
-  // console.log(Outlet.context);
 
   return (
     <Box p="20px">
       <SearchForm onSubmit={handleFormSubmit} />
       {movies.length !== 0 ? (
-        <FoundMoviesList movies={movies} />
+        <FoundMoviesList movies={movies} query={query} />
       ) : (
-        <p>{`cant find movie "${query}"`}</p>
+        <p></p>
       )}
     </Box>
   );

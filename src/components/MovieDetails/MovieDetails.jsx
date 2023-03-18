@@ -1,8 +1,9 @@
 import React, { useEffect, useState } from 'react';
-import { Link, useParams, useLocation } from 'react-router-dom';
+import { Link, useParams, useLocation, Outlet } from 'react-router-dom';
 import { Box } from 'components/Box/Box';
 import { getMovieDetails, getMovieImage } from 'services';
 import { Title, SmallTitle } from './MovieDetails.styled';
+// import { Cast } from 'components/Cast';
 
 export const MovieDetails = () => {
   const [movie, setMovie] = useState([]);
@@ -40,6 +41,10 @@ export const MovieDetails = () => {
     };
   }, [id]);
 
+  useEffect(() => {
+    console.log('location: ', location);
+  }, [location]);
+
   const makeGenres = array => {
     return array.map(item => {
       return <span key={item.name}>{item.name} </span>;
@@ -58,7 +63,7 @@ export const MovieDetails = () => {
     <Box pl="40px" pr="40px">
       {movie.length !== 0 && (
         <>
-          <Link to={location.state.from}>Go back</Link>
+          <Link to={location.state?.from ?? '/'}>Go back</Link>
           <Box display="flex">
             <Box>
               <img src={imageUrl} alt="movie title" />
@@ -78,7 +83,9 @@ export const MovieDetails = () => {
             <p>Additional information</p>
             <ul>
               <li>
-                <a href="./">Cast</a>
+                <Link to={`cast`} state={{ ...location.state }}>
+                  Cast
+                </Link>
               </li>
               <li>
                 <a href="./">Reviews</a>
@@ -94,6 +101,8 @@ export const MovieDetails = () => {
           <h1>Ooops...smth went wrong:(</h1> <p>{error}</p>
         </>
       )}
+
+      <Outlet />
     </Box>
   );
 };

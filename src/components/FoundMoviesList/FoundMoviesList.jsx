@@ -1,9 +1,9 @@
 import React from 'react';
-import { Link, useLocation } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { MoviesList, Item } from 'components/MoviesList';
 
-export const FoundMoviesList = ({ movies }) => {
-  const location = useLocation();
+export const FoundMoviesList = ({ movies, query }) => {
+  // const location = useLocation();
   return (
     <div>
       <MoviesList>
@@ -11,7 +11,10 @@ export const FoundMoviesList = ({ movies }) => {
           const { id, title, name } = movie;
           return (
             <Item key={id}>
-              <Link to={`/movies/${id}`} state={{ from: location }}>
+              <Link
+                to={`/movies/${id}`}
+                state={{ from: `/movies?query=${query}` }}
+              >
                 {title || name}
               </Link>
             </Item>

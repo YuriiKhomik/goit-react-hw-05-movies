@@ -1,12 +1,12 @@
 import React, { useState, useEffect } from 'react';
-import { Link, useLocation } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { Box } from 'components/Box/Box';
 import { getTrendingMovies } from 'services';
 import { MoviesList, Item } from 'components/MoviesList';
 
 export const TrendingMoviesList = () => {
   const [movies, setMovies] = useState([]);
-  const location = useLocation();
+  // const location = useLocation();
 
   useEffect(() => {
     const abortController = new AbortController();
@@ -33,7 +33,7 @@ export const TrendingMoviesList = () => {
           const { id, title, name } = movie;
           return (
             <Item key={id}>
-              <Link to={`/movies/${id}`} state={{ from: location }}>
+              <Link to={`/movies/${id}`} state={{ from: '/' }}>
                 {title || name}
               </Link>
             </Item>

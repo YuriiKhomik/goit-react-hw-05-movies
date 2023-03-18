@@ -5,6 +5,7 @@ import { Home, Movies } from 'pages';
 import { SharedLayout } from './SharedLayout';
 import { MovieDetails } from './MovieDetails';
 // import { getTrendingMovies } from 'services';
+import { Cast } from './Cast';
 
 export const App = () => {
   return (
@@ -13,7 +14,9 @@ export const App = () => {
         <Route index element={<Home />}></Route>
         <Route path="*" element={<Home />}></Route>
         <Route path="/movies" element={<Movies />}></Route>
-        <Route path="/movies/:id" element={<MovieDetails />}></Route>
+        <Route path="/movies/:id" element={<MovieDetails />}>
+          <Route path="cast" element={<Cast />} />
+        </Route>
       </Route>
     </Routes>
   );
