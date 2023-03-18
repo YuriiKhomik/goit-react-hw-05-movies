@@ -6,7 +6,7 @@ import { searchMovies } from 'services';
 import { FoundMoviesList } from 'components/FoundMoviesList';
 
 export const Movies = () => {
-  const [movies, setItems] = useState([]);
+  const [movies, setMovies] = useState([]);
   const [searchParams, setSearchParams] = useSearchParams();
 
   const query = searchParams.get('query');
@@ -21,7 +21,7 @@ export const Movies = () => {
     const fetchMovies = async () => {
       try {
         const movies = await searchMovies(query);
-        setItems(movies);
+        setMovies(movies);
       } catch (error) {
         console.log(error);
       }
@@ -42,7 +42,11 @@ export const Movies = () => {
   return (
     <Box p="20px">
       <SearchForm onSubmit={handleFormSubmit} />
-      <FoundMoviesList movies={movies} />
+      {movies.length !== 0 ? (
+        <FoundMoviesList movies={movies} />
+      ) : (
+        <p>{`cant find movie "${query}"`}</p>
+      )}
     </Box>
   );
 };
