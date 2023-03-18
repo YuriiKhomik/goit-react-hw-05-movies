@@ -56,11 +56,11 @@ export const MovieDetails = () => {
   };
 
   return (
-    <Box pl="40px" pr="40px">
+    <Box pl="40px" pr="40px" pt="20px">
       {movie.length !== 0 && (
         <>
           <Link to={location.state?.from ?? '/'}>Go back</Link>
-          <Box display="flex">
+          <Box display="flex" mb="20px" mt="20px">
             <Box>
               <img src={imageUrl} alt="movie title" />
             </Box>
@@ -75,7 +75,7 @@ export const MovieDetails = () => {
               <p>{makeGenres(genres)}</p>
             </Box>
           </Box>
-          <Box border="1px solid red">
+          <Box borderTop="1px solid black" borderBottom="1px solid black">
             <p>Additional information</p>
             <ul>
               <li>
