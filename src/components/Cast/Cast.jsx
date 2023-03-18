@@ -33,7 +33,11 @@ export const Cast = () => {
             const { cast_id, profile_path, name, character } = item;
             return (
               <li key={cast_id}>
-                <img src={getActorImage(profile_path)} width="100px" />
+                <img
+                  src={getActorImage(profile_path)}
+                  width="100px"
+                  alt="name"
+                />
                 <p>{name}</p>
                 <p>Character: {character}</p>
               </li>
