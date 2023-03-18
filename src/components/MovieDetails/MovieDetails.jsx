@@ -7,11 +7,13 @@ import { Title, SmallTitle } from './MovieDetails.styled';
 export const MovieDetails = () => {
   const [movie, setMovie] = useState([]);
   const [imageUrl, setImageUrl] = useState('');
+  const [error, setError] = useState(null);
+
   const { id } = useParams();
 
   const location = useLocation();
 
-  const { title, name, release_date, vote_average, overview, genres } = movie;
+  const { title, name, overview, genres, release_date, vote_average } = movie;
 
   useEffect(() => {
     if (!id) {
@@ -28,6 +30,7 @@ export const MovieDetails = () => {
         setImageUrl(image);
       } catch (error) {
         console.log(error);
+        setError(error.response.data.status_message);
       }
     };
     fetchMovieDetails();
@@ -37,43 +40,60 @@ export const MovieDetails = () => {
     };
   }, [id]);
 
-  useEffect(() => {});
+  const makeGenres = array => {
+    return array.map(item => {
+      return <span key={item.name}>{item.name} </span>;
+    });
+  };
 
-  if (movie.length !== 0) {
-    return (
-      <Box pl="40px" pr="40px">
-        <Link to={location.state.from}>Go back</Link>
-        <Box display="flex">
-          <Box>
-            <img src={imageUrl} alt="movie title" />
+  const makeReleaseDate = date => {
+    return date.slice(0, 4);
+  };
+
+  const makeRating = rating => {
+    return Math.round(rating * 10);
+  };
+
+  return (
+    <Box pl="40px" pr="40px">
+      {movie.length !== 0 && (
+        <>
+          <Link to={location.state.from}>Go back</Link>
+          <Box display="flex">
+            <Box>
+              <img src={imageUrl} alt="movie title" />
+            </Box>
+            <Box pl="20px">
+              <Title>
+                {title || name} {makeReleaseDate(release_date)}
+              </Title>
+              <p>User Score: {makeRating(vote_average)}%</p>
+              <SmallTitle>Overview</SmallTitle>
+              <p>{overview}</p>
+              <SmallTitle>Genres</SmallTitle>
+              <p>{makeGenres(genres)}</p>
+            </Box>
           </Box>
-          <Box pl="20px">
-            <Title>
-              {title || name} ({release_date.slice(0, 4)})
-            </Title>
-            <p>User Score: {`${Math.round(vote_average * 10)}%`}</p>
-            <SmallTitle>Overview</SmallTitle>
-            <p>{overview}</p>
-            <SmallTitle>Genres</SmallTitle>
-            <p>
-              {genres.map(genre => {
-                return <span key={genre.name}>{genre.name} </span>;
-              })}
-            </p>
+          <Box border="1px solid red">
+            <p>Additional information</p>
+            <ul>
+              <li>
+                <a href="./">Cast</a>
+              </li>
+              <li>
+                <a href="./">Reviews</a>
+              </li>
+            </ul>
           </Box>
-        </Box>
-        <Box border="1px solid red">
-          <p>Additional information</p>
-          <ul>
-            <li>
-              <a href="./">Cast</a>
-            </li>
-            <li>
-              <a href="./">Reviews</a>
-            </li>
-          </ul>
-        </Box>
-      </Box>
-    );
-  }
+        </>
+      )}
+
+      {error && (
+        <>
+          <Link to={location.state.from}>Go back</Link>
+          <h1>Ooops...smth went wrong:(</h1> <p>{error}</p>
+        </>
+      )}
+    </Box>
+  );
 };
