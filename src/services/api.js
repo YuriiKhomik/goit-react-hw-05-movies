@@ -14,14 +14,14 @@ export const getMovieImage = async posterPath => {
   const { configuration } = ENDPOINTS;
   axios.defaults.baseURL = `${configuration}?api_key=${API_KEY}`;
   const response = await axios.get();
-  const { base_url, poster_sizes } = response.data.images;
+  const { secure_base_url, poster_sizes } = response.data.images;
   if (!posterPath) {
     return notFoundImage;
   }
-  return `${base_url}${poster_sizes[2]}/${posterPath}`;
+  return `${secure_base_url}${poster_sizes[2]}/${posterPath}`;
 };
 
-// getMovieImage().then(console.log);
+getMovieImage('bPVqWiVxjXDzJOfvwGVyDOUydH5.jpg').then(console.log);
 
 export const getActorImage = posterPath => {
   // const { configuration } = ENDPOINTS;
