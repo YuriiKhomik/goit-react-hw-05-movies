@@ -1,11 +1,11 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, Suspense } from 'react';
 import { Link, useParams, useLocation, Outlet } from 'react-router-dom';
 import { Box } from 'components/Box/Box';
 import { getMovieDetails, getMovieImage } from 'services';
 import { Title, SmallTitle } from './MovieDetails.styled';
 // import { Cast } from 'components/Cast';
 
-export const MovieDetails = () => {
+const MovieDetails = () => {
   const [movie, setMovie] = useState([]);
   const [imageUrl, setImageUrl] = useState('');
   const [error, setError] = useState(null);
@@ -66,7 +66,7 @@ export const MovieDetails = () => {
             </Box>
             <Box pl="20px">
               <Title>
-                {title || name} {makeReleaseDate(release_date)}
+                {title || name} ({makeReleaseDate(release_date)})
               </Title>
               <p>User Score: {makeRating(vote_average)}%</p>
               <SmallTitle>Overview</SmallTitle>
@@ -100,10 +100,11 @@ export const MovieDetails = () => {
         </>
       )}
 
-      {/* <Outlet>
-        <Cast id={id} />
-      </Outlet> */}
-      <Outlet />
+      <Suspense fallback={<div>Loading additional information...</div>}>
+        <Outlet />
+      </Suspense>
     </Box>
   );
 };
+
+export default MovieDetails;

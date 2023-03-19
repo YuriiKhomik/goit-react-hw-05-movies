@@ -5,7 +5,7 @@ import { SearchForm } from 'components/SearchForm';
 import { searchMovies } from 'services';
 import { FoundMoviesList } from 'components/FoundMoviesList';
 
-export const Movies = () => {
+const Movies = () => {
   const [movies, setMovies] = useState([]);
   const [searchParams, setSearchParams] = useSearchParams();
 
@@ -49,3 +49,5 @@ export const Movies = () => {
     </Box>
   );
 };
+
+export default Movies;

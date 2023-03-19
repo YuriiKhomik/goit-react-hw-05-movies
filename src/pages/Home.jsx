@@ -1,10 +1,12 @@
 import React from 'react';
 import { TrendingMoviesList } from 'components/TrendingMoviesList';
 
-export const Home = () => {
+const Home = () => {
   return (
     <div>
       <TrendingMoviesList />
     </div>
   );
 };
+
+export default Home;
