@@ -21,7 +21,7 @@ export const getMovieImage = async posterPath => {
   return `${secure_base_url}${poster_sizes[2]}/${posterPath}`;
 };
 
-getMovieImage('bPVqWiVxjXDzJOfvwGVyDOUydH5.jpg').then(console.log);
+// getMovieImage('bPVqWiVxjXDzJOfvwGVyDOUydH5.jpg').then(console.log);
 
 export const getActorImage = posterPath => {
   // const { configuration } = ENDPOINTS;
