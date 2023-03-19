@@ -79,4 +79,4 @@ export const getMovieReviews = async movieId => {
   return response.data.results;
 };
 
-// getMovieReviews(11345).then(console.log);
+// getMovieReviews(881164).then(console.log);

@@ -2,8 +2,6 @@ import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import { getMovieCredits, getActorImage } from 'services';
 
-// profile_path, name, character
-
 export const Cast = () => {
   const [cast, setCast] = useState([]);
 
@@ -27,7 +25,7 @@ export const Cast = () => {
 
   return (
     <>
-      {cast.length !== 0 && (
+      {cast.length !== 0 ? (
         <ul>
           {cast.map(item => {
             const { cast_id, profile_path, name, character } = item;
@@ -44,6 +42,8 @@ export const Cast = () => {
             );
           })}
         </ul>
+      ) : (
+        <p>Ой, лишенько. Can't find any info about cast:(</p>
       )}
     </>
   );

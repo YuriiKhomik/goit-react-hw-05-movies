@@ -84,7 +84,9 @@ export const MovieDetails = () => {
                 </Link>
               </li>
               <li>
-                <a href="./">Reviews</a>
+                <Link to={'reviews'} state={{ ...location.state }}>
+                  Reviews
+                </Link>
               </li>
             </ul>
           </Box>
