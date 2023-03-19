@@ -31,7 +31,7 @@ export const getActorImage = posterPath => {
   if (!posterPath) {
     return notFoundImage;
   }
-  return `http://image.tmdb.org/t/p/w185/${posterPath}`;
+  return `https://image.tmdb.org/t/p/w185/${posterPath}`;
 };
 
 // getActorImage('/bXe9Z7QHCx7wksNX9Qg9bm4kDAr.jpg').then(console.log);
