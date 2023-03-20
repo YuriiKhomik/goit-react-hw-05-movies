@@ -1,9 +1,9 @@
-import React, { useEffect, useState, Suspense } from 'react';
-import { Link, useParams, useLocation, Outlet } from 'react-router-dom';
+import React, { useEffect, useState } from 'react';
+import { Link, useParams, useLocation } from 'react-router-dom';
 import { Box } from 'components/Box/Box';
 import { getMovieDetails, getMovieImage } from 'services';
 import { Title, SmallTitle } from './MovieDetails.styled';
-// import { Cast } from 'components/Cast';
+import { SuspenseComponent } from 'components/Suspense';
 
 const MovieDetails = () => {
   const [movie, setMovie] = useState([]);
@@ -100,9 +100,10 @@ const MovieDetails = () => {
         </>
       )}
 
-      <Suspense fallback={<div>Loading additional information...</div>}>
+      {/* <Suspense fallback={<div>Loading additional information...</div>}>
         <Outlet />
-      </Suspense>
+      </Suspense> */}
+      <SuspenseComponent />
     </Box>
   );
 };

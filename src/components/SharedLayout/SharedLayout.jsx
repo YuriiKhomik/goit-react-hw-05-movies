@@ -1,6 +1,7 @@
-import React, { Suspense } from 'react';
-import { Outlet } from 'react-router-dom';
+import React from 'react';
+// import { Outlet } from 'react-router-dom';
 import { ToastContainer } from 'react-toastify';
+import { SuspenseComponent } from 'components/Suspense';
 import { NavBar } from 'components/NavBar';
 
 export const SharedLayout = () => {
@@ -8,9 +9,10 @@ export const SharedLayout = () => {
     <div>
       <NavBar />
 
-      <Suspense fallback={<div>Loading...</div>}>
+      {/* <Suspense fallback={<div>Loading...</div>}>
         <Outlet />
-      </Suspense>
+      </Suspense> */}
+      <SuspenseComponent />
       <ToastContainer
         position="top-right"
         autoClose={3000}

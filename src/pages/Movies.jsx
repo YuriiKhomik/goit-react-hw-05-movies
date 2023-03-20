@@ -1,9 +1,10 @@
 import React, { useState, useEffect } from 'react';
-import { useSearchParams } from 'react-router-dom';
+import { useSearchParams, Link } from 'react-router-dom';
 import { Box } from 'components/Box/Box';
 import { SearchForm } from 'components/SearchForm';
 import { searchMovies } from 'services';
-import { FoundMoviesList } from 'components/FoundMoviesList';
+// import { FoundMoviesList } from 'components/FoundMoviesList';
+import { MoviesList, Item } from 'components/MoviesList';
 
 const Movies = () => {
   const [movies, setMovies] = useState([]);
@@ -42,7 +43,22 @@ const Movies = () => {
     <Box p="20px">
       <SearchForm onSubmit={handleFormSubmit} />
       {movies.length !== 0 ? (
-        <FoundMoviesList movies={movies} query={query} />
+        // <FoundMoviesList movies={movies} query={query} />
+        <MoviesList>
+          {movies.map(movie => {
+            const { id, title, name } = movie;
+            return (
+              <Item key={id}>
+                <Link
+                  to={`/movies/${id}`}
+                  state={{ from: `/movies?query=${query}` }}
+                >
+                  {title || name}
+                </Link>
+              </Item>
+            );
+          })}
+        </MoviesList>
       ) : (
         <p></p>
       )}
